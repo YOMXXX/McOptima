@@ -16,48 +16,50 @@
   <text x="250" y="92" font-size="19" fill="#FFFFFF" text-anchor="middle" font-weight="600">2026 麦当劳 1024 程序员节 · 参赛作品</text>
 
   <!-- 主标题 -->
-  <text x="72" y="238" font-size="96" fill="#FFFFFF" font-weight="800">我用运筹学</text>
-  <text x="72" y="352" font-size="96" fill="#FFFFFF" font-weight="800">穷举了麦麦全菜单</text>
+  <text x="72" y="238" font-size="84" fill="#FFFFFF" font-weight="800">我用运筹学</text>
+  <text x="72" y="342" font-size="84" fill="#FFFFFF" font-weight="800">穷举了麦麦全菜单</text>
 
   <!-- 强调行 -->
-  <text x="72" y="412" font-size="34" fill="#B8B8C8" font-weight="500">—— 算出你这一餐的</text>
-  <text x="296" y="412" font-size="38" fill="#FFC72C" font-weight="800">全局最优解</text>
+  <text x="72" y="398" font-size="33" fill="#B8B8C8" font-weight="500">算出你这一餐的</text>
+  <text x="72" y="452" font-size="40" fill="#FFC72C" font-weight="800">全局最优解</text>
 
   <!-- 副标题: 约束条件 -->
-  <text x="72" y="462" font-size="23" fill="#8A8AA0">预算 ≤ ¥30 · 热量 ≤ 800kcal · 蛋白质 ≥ 25g ｜ 多约束 0/1 背包动态规划</text>
+  <text x="72" y="486" font-size="22" fill="#8A8AA0">预算 ≤ ¥30 · 热量 ≤ 800kcal · 蛋白质 ≥ 25g</text>
+  <text x="72" y="514" font-size="22" fill="#8A8AA0">多约束 0/1 背包动态规划</text>
 
   <!-- 菜品格子装饰 (111个餐品, 少数被选中) -->
   <g>
-    <rect x="72"  y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="104" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="136" y="500" width="22" height="22" rx="5" fill="#DA291C"/>
-    <rect x="168" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="200" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="232" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="264" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="296" y="500" width="22" height="22" rx="5" fill="#FFC72C"/>
-    <rect x="328" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="360" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="392" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="424" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="456" y="500" width="22" height="22" rx="5" fill="#DA291C"/>
-    <rect x="488" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="520" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="552" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="584" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="616" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <rect x="648" y="500" width="22" height="22" rx="5" fill="#26263A"/>
-    <text x="72" y="552" font-size="15" fill="#5A5A72">111 个餐品候选 · 2 个入选最优解</text>
+    <rect x="72"  y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="100" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="128" y="540" width="20" height="20" rx="5" fill="#DA291C"/>
+    <rect x="156" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="184" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="212" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="240" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="268" y="540" width="20" height="20" rx="5" fill="#FFC72C"/>
+    <rect x="296" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="324" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="352" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="380" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="408" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="436" y="540" width="20" height="20" rx="5" fill="#DA291C"/>
+    <rect x="464" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="492" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="520" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="548" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="576" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <rect x="604" y="540" width="20" height="20" rx="5" fill="#26263A"/>
+    <text x="72" y="586" font-size="15" fill="#5A5A72">111 个餐品候选 · 2 个入选最优解</text>
   </g>
 
   <!-- 终端窗口 -->
-  <rect x="72" y="576" width="624" height="106" rx="14" fill="#0C0C16" stroke="#2A2A3C" stroke-width="1.5"/>
-  <circle cx="100" cy="600" r="6" fill="#F38BA8"/>
-  <circle cx="122" cy="600" r="6" fill="#F9E2AF"/>
-  <circle cx="144" cy="600" r="6" fill="#A6E3A1"/>
-  <text x="176" y="606" font-size="13" fill="#5A5A72" font-family="Menlo, monospace">zsh — mcoptima</text>
-  <text x="96" y="640" font-size="19" fill="#A6E3A1" font-family="Menlo, Monaco, monospace">$ mcoptima --mode feast --budget 30 --kcal 800</text>
-  <text x="96" y="668" font-size="19" fill="#CDD6F4" font-family="Menlo, Monaco, monospace">→ 3 solutions · 45ms · 官方验价偏差 ¥0.00</text>
+  <rect x="72" y="598" width="624" height="100" rx="14" fill="#0C0C16" stroke="#2A2A3C" stroke-width="1.5"/>
+  <circle cx="100" cy="620" r="6" fill="#F38BA8"/>
+  <circle cx="122" cy="620" r="6" fill="#F9E2AF"/>
+  <circle cx="144" cy="620" r="6" fill="#A6E3A1"/>
+  <text x="176" y="625" font-size="13" fill="#5A5A72" font-family="Menlo, monospace">zsh — mcoptima</text>
+  <text x="96" y="655" font-size="18" fill="#A6E3A1" font-family="Menlo, Monaco, monospace">$ mcoptima --mode feast --budget 30 --kcal 800</text>
+  <text x="96" y="681" font-size="18" fill="#CDD6F4" font-family="Menlo, Monaco, monospace">→ 3 solutions · 45ms · 官方验价偏差 ¥0.00</text>
 
   <!-- 右侧: 最优解卡片 -->
   <g>
@@ -99,7 +101,7 @@
 
   <!-- Star 按钮 (右下) -->
   <g>
-    <path d="M 1146 692 L 1152.4 678.8 L 1166.8 676.9 L 1156.4 667.3 L 1158.8 654 L 1146 660.5 L 1133.2 654 L 1135.6 667.3 L 1125.2 676.9 L 1139.6 678.8 Z" fill="#FFC72C"/>
-    <text x="1176" y="695" font-size="21" fill="#B8B8C8" font-weight="600">Star 支持参赛</text>
+    <path d="M 1086 692 L 1092.4 678.8 L 1106.8 676.9 L 1096.4 667.3 L 1098.8 654 L 1086 660.5 L 1073.2 654 L 1075.6 667.3 L 1065.2 676.9 L 1079.6 678.8 Z" fill="#FFC72C"/>
+    <text x="1116" y="695" font-size="21" fill="#B8B8C8" font-weight="600">Star 支持参赛</text>
   </g>
 </svg>
