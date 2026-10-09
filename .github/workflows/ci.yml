@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run solver unit tests (offline, no MCP needed)
+        run: python3 tests/test_solver.py
+
+      - name: Syntax check all scripts
+        run: |
+          python3 -m py_compile skill/scripts/solver.py
+          python3 -m py_compile skill/scripts/build.py
+          python3 -m py_compile skill/scripts/mcp_client.py
+          python3 -m py_compile skill/scripts/substitute.py
+          python3 -m py_compile skill/scripts/coupon_planner.py
+          python3 -m py_compile skill/scripts/card_generator.py
+          python3 -m py_compile skill/scripts/cli.py
+
+      - name: Verify contest required files exist
+        run: |
+          for f in README.md CONTEST_DECLARATION.md MCP_INTEGRATION.md mcp-config.example.json; do
+            [ -f "$f" ] && echo "OK $f" || { echo "MISSING $f"; exit 1; }
+          done
+
+      - name: Guard against real tokens in repo
+        run: |
+          # mcp-config.example.json 只允许环境变量占位符
+          if grep -q "Bearer [A-Za-z0-9]\{16,\}" mcp-config.example.json; then
+            echo "FAIL: mcp-config.example.json 含真实 Token 形态字符串"
+            exit 1
+          fi
+          echo "PASS: no real token patterns found"

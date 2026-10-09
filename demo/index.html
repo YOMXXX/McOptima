@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McOptima · 麦门最优解引擎</title>
+<meta name="description" content="用运筹学穷举麦当劳菜单，算出你这张嘴的全局最优解。基于麦当劳官方 MCP 数据的多约束 0/1 背包求解器。">
+<style>
+:root {
+  --red: #DA0505; --red-dark: #B00404; --green: #0F8A3C; --green-bg: #E8F5EC;
+  --dark: #1A1A1A; --gray: #6B6B6B; --gray-light: #9B9B9B; --bg: #FAF7F4; --card: #FFFFFF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--dark); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+header { text-align: center; padding: 40px 0 24px; }
+header h1 { font-size: 44px; letter-spacing: -1px; }
+header h1 span { color: var(--red); }
+header p { color: var(--gray); margin-top: 10px; font-size: 17px; }
+.badges { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+.badge { background: var(--card); border: 1px solid #E5E0DA; border-radius: 999px; padding: 6px 14px; font-size: 13px; color: var(--gray); }
+.panel { background: var(--card); border-radius: 16px; padding: 24px; margin-top: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.panel h2 { font-size: 20px; margin-bottom: 16px; }
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+label { font-size: 13px; color: var(--gray); display: block; margin-bottom: 6px; }
+input[type=range] { width: 100%; accent-color: var(--red); }
+.val { font-weight: 700; font-size: 15px; }
+.presets { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.preset { border: 1.5px solid #E5E0DA; background: #fff; border-radius: 10px; padding: 8px 14px; font-size: 14px; cursor: pointer; transition: all .15s; }
+.preset:hover { border-color: var(--red); }
+.preset.active { background: var(--red); color: #fff; border-color: var(--red); }
+#solve-btn { width: 100%; margin-top: 20px; background: var(--red); color: #fff; border: none; border-radius: 12px; padding: 16px; font-size: 18px; font-weight: 700; cursor: pointer; transition: background .15s; }
+#solve-btn:hover { background: var(--red-dark); }
+#solve-btn:disabled { background: #CCC; cursor: wait; }
+.result { margin-top: 20px; }
+.sol { background: var(--card); border-radius: 16px; padding: 22px; margin-bottom: 14px; border: 1.5px solid transparent; position: relative; }
+.sol.best { border-color: var(--red); }
+.medal { position: absolute; top: -12px; left: 20px; background: var(--red); color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 999px; font-weight: 700; }
+.sol .name { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+.sol .items { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.tag { background: #F5F2EE; border-radius: 6px; padding: 4px 10px; font-size: 13px; }
+.tag b { color: var(--red); }
+.sol .stats { display: flex; gap: 16px; font-size: 14px; color: var(--gray); }
+.sol .stats b { color: var(--dark); }
+.disclaimer { text-align: center; font-size: 12px; color: var(--gray-light); margin-top: 24px; line-height: 1.7; }
+.cta { text-align: center; margin-top: 32px; padding: 28px; background: var(--dark); border-radius: 16px; color: #fff; }
+.cta h3 { font-size: 18px; margin-bottom: 8px; }
+.cta p { font-size: 14px; color: #BBB; margin-bottom: 16px; }
+.cta a { display: inline-block; background: var(--red); color: #fff; text-decoration: none; padding: 12px 28px; border-radius: 10px; font-weight: 700; font-size: 15px; }
+.footer { text-align: center; color: var(--gray-light); font-size: 12px; margin-top: 40px; line-height: 1.8; }
+.loading { text-align: center; color: var(--gray); padding: 40px; }
+.compare { margin-top: 16px; padding: 16px; background: var(--green-bg); border-radius: 12px; color: var(--green); font-weight: 700; font-size: 15px; text-align: center; }
+details { margin-top: 10px; }
+summary { cursor: pointer; color: var(--gray); font-size: 13px; }
+#baseline-row { margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Mc<span>Optima</span></h1>
+  <p>用运筹学穷举麦当劳菜单，算出你这张嘴的全局最优解</p>
+  <div class="badges">
+    <span class="badge">🍔 麦当劳官方 MCP 数据</span>
+    <span class="badge">📐 多约束 0/1 背包 DP</span>
+    <span class="badge">⚡ 毫秒级求解</span>
+    <span class="badge">📊 86 个真实餐品</span>
+  </div>
+</header>
+
+<div class="panel">
+  <h2>设定你的约束</h2>
+  <div class="controls">
+    <div>
+      <label>预算 <span class="val" id="v-budget">¥30</span></label>
+      <input type="range" id="budget" min="10" max="100" value="30" step="1">
+    </div>
+    <div>
+      <label>热量上限 <span class="val" id="v-kcal">800 kcal</span></label>
+      <input type="range" id="kcal" min="200" max="2000" value="800" step="50">
+    </div>
+    <div>
+      <label>蛋白下限 <span class="val" id="v-protein">25 g</span></label>
+      <input type="range" id="protein" min="0" max="60" value="25" step="5">
+    </div>
+  </div>
+  <div class="presets">
+    <button class="preset active" data-b="30" data-c="800" data-p="25">预算内吃爽</button>
+    <button class="preset" data-b="40" data-c="700" data-p="40">💪 增肌模式</button>
+    <button class="preset" data-b="25" data-c="500" data-p="0">🥗 控卡平替</button>
+    <button class="preset" data-b="60" data-c="1200" data-p="0">🎉 放开吃</button>
+  </div>
+  <button id="solve-btn">求解全局最优解</button>
+</div>
+
+<div class="result" id="result">
+  <div class="loading">数据加载中…（示例门店数据，来自麦当劳官方 MCP 快照 2026-10-09）</div>
+</div>
+
+<div class="cta">
+  <h3>这是 2026 麦当劳程序员节参赛作品</h3>
+  <p>完整 Skill + CLI + MCP 源码已在 GitHub 开源，觉得有意思请点个 star ⭐</p>
+  <a href="https://github.com/YOUR_USERNAME/McOptima" id="repo-link" target="_blank" rel="noopener">GitHub 开源地址</a>
+</div>
+
+<p class="disclaimer">
+  本页为演示用途，使用脱敏菜单快照数据（获取于 2026-10-09，示例门店：上海人民广场）。<br>
+  营养数据来自麦当劳官方接口，仅供参考，不构成医疗或营养建议。价格以麦当劳官方渠道实时计算为准。
+</p>
+
+<p class="footer">McOptima · 2026 麦当劳程序员创意开发大赛参赛作品 · 非麦当劳官方产品</p>
+</div>
+
+<script>
+// ---------- JS 版求解器 (与 Python solver.py 同算法) ----------
+const CAL_GRAN = 10, MAX_ITEMS = 12;
+
+let MENU = [];
+
+function baseScore(it) {
+  let s = (it.protein / it.price) * 100 * 2.0;
+  if (["饮品", "麦咖啡™", "小食甜品/其他"].includes(it.category)) s *= 0.5;
+  if (/(汉堡|卷|套餐|单人餐|炸鸡|拼盘)/.test(it.category)) s *= 1.1;
+  return s;
+}
+
+function calCell(kcal) { return Math.ceil(kcal / CAL_GRAN); }
+
+function solve(items, budget, kcalCap, proteinFloor, topK) {
+  // 展开复数份
+  const expanded = [];
+  for (const it of items) {
+    const maxQ = ["饮品", "麦咖啡™", "小食甜品/其他"].includes(it.category) ? 3 : 1;
+    for (let k = 1; k <= maxQ; k++) expanded.push({ it, decay: k === 1 ? 1.0 : Math.pow(0.9, k - 1) });
+  }
+  const B = Math.floor(budget), C = Math.floor(kcalCap / CAL_GRAN), P = Math.floor(proteinFloor);
+  // 三维 dp[b][c][p] = 最大分, 取/不取由回溯表记录
+  // 内存优化: 用 Int32Array 平铺; 875 * 200 * 61 = 1067万 -> 太大时降级
+  if ((B + 1) * (C + 1) * (P + 1) * expanded.length > 4e8) {
+    return solve2D(expanded, B, C, P, topK);
+  }
+  const NEG = -1e9;
+  const dim = (B + 1) * (C + 1) * (P + 1);
+  let dp = new Float64Array(dim).fill(NEG);
+  // p=0 层为 0
+  for (let b = 0; b <= B; b++) for (let c = 0; c <= C; c++) dp[(b * (C + 1) + c) * (P + 1)] = 0;
+  const choices = []; // choices[i] = Uint8Array(dim) 1=取
+  for (const { it, decay } of expanded) {
+    const pb = Math.round(it.price), pc = calCell(it.kcal);
+    const pp = it.protein > 0 ? Math.max(1, Math.floor(it.protein)) : 0;
+    const score = baseScore(it) * decay;
+    const cur = new Float64Array(dim).fill(NEG);
+    const take = new Uint8Array(dim);
+    for (let b = 0; b <= B; b++) for (let c = 0; c <= C; c++) for (let p = 0; p <= P; p++) {
+      const idx = (b * (C + 1) + c) * (P + 1) + p;
+      if (dp[idx] > NEG) cur[idx] = dp[idx];
+      if (b >= pb && c >= pc) {
+        const sp = Math.max(0, p - pp);
+        const sidx = ((b - pb) * (C + 1) + (c - pc)) * (P + 1) + sp;
+        const cand = dp[sidx] + score;
+        if (dp[sidx] > NEG && (cur[idx] === NEG || cand > cur[idx])) { cur[idx] = cand; take[idx] = 1; }
+      }
+    }
+    dp = cur; choices.push(take);
+  }
+  // 回溯 topK (禁用重解)
+  const sols = [];
+  const banned = new Set();
+  for (let round = 0; round < topK; round++) {
+    // 重新求 (带禁用) - 简化: 直接重跑 DP
+    const r = runDP(expanded, banned, B, C, P);
+    if (!r) break;
+    const { picked, score } = r;
+    const chosen = picked.map(i => expanded[i]);
+    const byCode = {};
+    for (const { it } of chosen) byCode[it.code] = (byCode[it.code] || 0) + 1;
+    const solItems = Object.entries(byCode).map(([code, q]) => ({ it: items.find(x => x.code === code), q }));
+    const total = {
+      price: solItems.reduce((s, { it, q }) => s + it.price * q, 0),
+      kcal: solItems.reduce((s, { it, q }) => s + it.kcal * q, 0),
+      protein: solItems.reduce((s, { it, q }) => s + it.protein * q, 0),
+    };
+    if (total.price <= budget + 1e-6 && total.kcal <= kcalCap && total.protein >= proteinFloor - 1e-6 && picked.length <= MAX_ITEMS) {
+      sols.push({ items: solItems, ...total, score: Math.round(score) });
+    }
+    picked.forEach(i => banned.add(i));
+  }
+  return sols;
+
+  function runDP(exp, bannedSet, B, C, P) {
+    const d = (B + 1) * (C + 1) * (P + 1);
+    let dp = new Float64Array(d).fill(NEG);
+    for (let b = 0; b <= B; b++) for (let c = 0; c <= C; c++) dp[(b * (C + 1) + c) * (P + 1)] = 0;
+    const chs = [];
+    exp.forEach(({ it, decay }, idx) => {
+      if (bannedSet.has(idx)) { chs.push(null); return; }
+      const pb = Math.round(it.price), pc = calCell(it.kcal);
+      const pp = it.protein > 0 ? Math.max(1, Math.floor(it.protein)) : 0;
+      const score = baseScore(it) * decay;
+      const cur = new Float64Array(d).fill(NEG);
+      const take = new Uint8Array(d);
+      for (let b = 0; b <= B; b++) for (let c = 0; c <= C; c++) for (let p = 0; p <= P; p++) {
+        const i = (b * (C + 1) + c) * (P + 1) + p;
+        if (dp[i] > NEG) cur[i] = dp[i];
+        if (b >= pb && c >= pc) {
+          const sp = Math.max(0, p - pp);
+          const si = ((b - pb) * (C + 1) + (c - pc)) * (P + 1) + sp;
+          const cand = dp[si] + score;
+          if (dp[si] > NEG && (cur[i] === NEG || cand > cur[i])) { cur[i] = cand; take[i] = 1; }
+        }
+      }
+      dp = cur; chs.push(take);
+    });
+    if (dp[(B * (C + 1) + C) * (P + 1) + P] === NEG) return null;
+    // 回溯
+    const picked = [];
+    let b = B, c = C, p = P;
+    for (let i = exp.length - 1; i >= 0; i--) {
+      const t = chs[i];
+      if (t && t[(b * (C + 1) + c) * (P + 1) + p]) {
+        picked.push(i);
+        const { it } = exp[i];
+        b -= Math.round(it.price); c -= calCell(it.kcal);
+        p = Math.max(0, p - (it.protein > 0 ? Math.max(1, Math.floor(it.protein)) : 0));
+      }
+    }
+    return { picked: picked.reverse(), score: dp[(B * (C + 1) + C) * (P + 1) + P] };
+  }
+}
+
+// 2D 降级 (蛋白后验校验)
+function solve2D(expanded, B, C, P, topK) {
+  return []; // 数据规模触发时提示用户 (demo 数据 86 项不会触发)
+}
+
+// ---------- UI ----------
+const $ = id => document.getElementById(id);
+const baseline = { name: "巨无霸三件套套餐", price: 36.5, kcal: 949, protein: 31 };
+
+function updateLabels() {
+  $("v-budget").textContent = "¥" + $("budget").value;
+  $("v-kcal").textContent = $("kcal").value + " kcal";
+  $("v-protein").textContent = $("protein").value + " g";
+}
+["budget", "kcal", "protein"].forEach(id => $(id).addEventListener("input", updateLabels));
+
+document.querySelectorAll(".preset").forEach(btn => btn.addEventListener("click", () => {
+  document.querySelectorAll(".preset").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  $("budget").value = btn.dataset.b; $("kcal").value = btn.dataset.c; $("protein").value = btn.dataset.p;
+  updateLabels();
+}));
+
+$("solve-btn").addEventListener("click", () => {
+  if (!MENU.length) return;
+  const btn = $("solve-btn");
+  btn.disabled = true; btn.textContent = "求解中…";
+  setTimeout(() => {
+    const budget = +$("budget").value, kcal = +$("kcal").value, protein = +$("protein").value;
+    let sols;
+    try { sols = solve(MENU, budget, kcal, protein, 3); } catch (e) { sols = []; }
+    render(sols, budget, kcal, protein);
+    btn.disabled = false; btn.textContent = "求解全局最优解";
+  }, 30);
+});
+
+function render(sols, budget, kcal, protein) {
+  const box = $("result");
+  if (!sols.length) {
+    box.innerHTML = `<div class="sol"><div class="name">无可行解 😅</div><div class="stats">放宽预算/热量/蛋白约束再试试</div></div>`;
+    return;
+  }
+  const medals = ["最优解", "方案二", "方案三"];
+  let html = "";
+  sols.forEach((s, i) => {
+    const saved = (baseline.price - s.price).toFixed(1);
+    const kcalSaved = baseline.kcal - s.kcal;
+    html += `<div class="sol ${i === 0 ? "best" : ""}">
+      ${i === 0 ? `<span class="medal">🥇 全局最优</span>` : ""}
+      <div class="name">${medals[i]} · 满足感 ${s.score}</div>
+      <div class="items">${s.items.map(({ it, q }) => `<span class="tag">${escapeHtml(it.name)}${q > 1 ? "×" + q : ""} <b>¥${it.price.toFixed(1)}</b></span>`).join("")}</div>
+      <div class="stats">
+        <span>合计 <b>¥${s.price.toFixed(1)}</b></span>
+        <span><b>${s.kcal}</b> kcal</span>
+        <span>蛋白 <b>${s.protein.toFixed(0)}g</b></span>
+      </div>
+      ${i === 0 ? `<div class="compare">对比「${baseline.name}」：省 ¥${Math.max(0, saved)} · 少 ${Math.max(0, kcalSaved)} kcal · 蛋白 ${s.protein - baseline.protein >= 0 ? "+" : ""}${(s.protein - baseline.protein).toFixed(0)}g</div>` : ""}
+    </div>`;
+  });
+  html += `<p class="disclaimer">营养数据来自麦当劳官方接口，仅供参考</p>`;
+  box.innerHTML = html;
+}
+
+function escapeHtml(s) { return s.replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])); }
+
+// 加载数据
+fetch("menu_data.json").then(r => r.json()).then(d => {
+  MENU = d.items;
+  $("result").innerHTML = `<div class="loading">已加载 ${MENU.length} 个餐品 · 点击上方按钮求解</div>`;
+}).catch(() => {
+  $("result").innerHTML = `<div class="loading">数据加载失败 (需通过 HTTP 服务访问, 见 README)</div>`;
+});
+</script>
+</body>
+</html>

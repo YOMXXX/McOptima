@@ -1,0 +1,29 @@
+# 环境与密钥
+.env
+.env.*
+*.token
+
+# 数据缓存 (本地拉取的门店/菜单/营养数据)
+data/cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# 日志
+*.log
