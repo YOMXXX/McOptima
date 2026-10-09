@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1304" height="734" viewBox="0 0 1304 734" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <!-- 背景 -->
+  <rect width="1304" height="734" fill="#141420"/>
+
+  <!-- 金拱门弧线 (背景装饰, 低透明度) -->
+  <g stroke="#FFC72C" stroke-width="24" fill="none" opacity="0.13">
+    <path d="M 900 -30 A 130 130 0 0 1 1160 -30"/>
+    <path d="M 1040 -60 A 150 150 0 0 1 1340 -60"/>
+  </g>
+  <g stroke="#DA291C" stroke-width="20" fill="none" opacity="0.10">
+    <path d="M 960 780 A 170 170 0 0 1 1260 780"/>
+  </g>
+
+  <!-- 顶部标签 -->
+  <rect x="72" y="66" width="356" height="38" rx="19" fill="#DA291C"/>
+  <text x="250" y="92" font-size="19" fill="#FFFFFF" text-anchor="middle" font-weight="600">2026 麦当劳 1024 程序员节 · 参赛作品</text>
+
+  <!-- 主标题 -->
+  <text x="72" y="238" font-size="96" fill="#FFFFFF" font-weight="800">我用运筹学</text>
+  <text x="72" y="352" font-size="96" fill="#FFFFFF" font-weight="800">穷举了麦麦全菜单</text>
+
+  <!-- 强调行 -->
+  <text x="72" y="412" font-size="34" fill="#B8B8C8" font-weight="500">—— 算出你这一餐的</text>
+  <text x="296" y="412" font-size="38" fill="#FFC72C" font-weight="800">全局最优解</text>
+
+  <!-- 副标题: 约束条件 -->
+  <text x="72" y="462" font-size="23" fill="#8A8AA0">预算 ≤ ¥30 · 热量 ≤ 800kcal · 蛋白质 ≥ 25g ｜ 多约束 0/1 背包动态规划</text>
+
+  <!-- 菜品格子装饰 (111个餐品, 少数被选中) -->
+  <g>
+    <rect x="72"  y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="104" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="136" y="500" width="22" height="22" rx="5" fill="#DA291C"/>
+    <rect x="168" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="200" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="232" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="264" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="296" y="500" width="22" height="22" rx="5" fill="#FFC72C"/>
+    <rect x="328" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="360" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="392" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="424" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="456" y="500" width="22" height="22" rx="5" fill="#DA291C"/>
+    <rect x="488" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="520" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="552" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="584" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="616" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <rect x="648" y="500" width="22" height="22" rx="5" fill="#26263A"/>
+    <text x="72" y="552" font-size="15" fill="#5A5A72">111 个餐品候选 · 2 个入选最优解</text>
+  </g>
+
+  <!-- 终端窗口 -->
+  <rect x="72" y="576" width="624" height="106" rx="14" fill="#0C0C16" stroke="#2A2A3C" stroke-width="1.5"/>
+  <circle cx="100" cy="600" r="6" fill="#F38BA8"/>
+  <circle cx="122" cy="600" r="6" fill="#F9E2AF"/>
+  <circle cx="144" cy="600" r="6" fill="#A6E3A1"/>
+  <text x="176" y="606" font-size="13" fill="#5A5A72" font-family="Menlo, monospace">zsh — mcoptima</text>
+  <text x="96" y="640" font-size="19" fill="#A6E3A1" font-family="Menlo, Monaco, monospace">$ mcoptima --mode feast --budget 30 --kcal 800</text>
+  <text x="96" y="668" font-size="19" fill="#CDD6F4" font-family="Menlo, Monaco, monospace">→ 3 solutions · 45ms · 官方验价偏差 ¥0.00</text>
+
+  <!-- 右侧: 最优解卡片 -->
+  <g>
+    <rect x="782" y="140" width="452" height="440" rx="20" fill="#FFFFFF"/>
+    <!-- 卡片头部 -->
+    <path d="M 782 160 A 20 20 0 0 1 802 140 L 1214 140 A 20 20 0 0 1 1234 160 L 1234 228 L 782 228 Z" fill="#DA291C"/>
+    <text x="812" y="180" font-size="30" fill="#FFFFFF" font-weight="800">McOptima</text>
+    <text x="812" y="210" font-size="17" fill="#FFD6D0">全局最优解 · 满足感 765</text>
+    <circle cx="1190" cy="184" r="24" fill="#FFC72C"/>
+    <text x="1190" y="193" font-size="22" fill="#141420" font-weight="800" text-anchor="middle">1</text>
+
+    <!-- 餐品行 1 -->
+    <text x="812" y="282" font-size="24" fill="#1A1A24" font-weight="700">蘸酱麦麦脆汁鸡</text>
+    <text x="1204" y="282" font-size="24" fill="#DA291C" font-weight="800" text-anchor="end">¥11.9</text>
+    <text x="812" y="308" font-size="16" fill="#9B9BA8">328 kcal · 蛋白质 21g</text>
+
+    <!-- 餐品行 2 -->
+    <text x="812" y="360" font-size="24" fill="#1A1A24" font-weight="700">那么大鸡排（椒盐）</text>
+    <text x="1204" y="360" font-size="24" fill="#DA291C" font-weight="800" text-anchor="end">¥14.0</text>
+    <text x="812" y="386" font-size="16" fill="#9B9BA8">385 kcal · 蛋白质 24g</text>
+
+    <!-- 合计 -->
+    <line x1="812" y1="412" x2="1204" y2="412" stroke="#EEEEF2" stroke-width="2"/>
+    <text x="812" y="452" font-size="30" fill="#1A1A24" font-weight="800">合计 ¥25.9</text>
+    <text x="1204" y="450" font-size="19" fill="#5A5A68" text-anchor="end" font-weight="600">713kcal · 蛋白 45g</text>
+
+    <!-- 对比徽章 -->
+    <rect x="812" y="472" width="392" height="70" rx="12" fill="#E8F5EC"/>
+    <text x="1008" y="498" font-size="15" fill="#4A7A58" text-anchor="middle">对比「巨无霸三件套套餐 ¥36.5 · 949kcal」</text>
+    <text x="1008" y="526" font-size="21" fill="#0F8A3C" text-anchor="middle" font-weight="800">省 ¥10.6 · 少 236 kcal · 蛋白 +14g</text>
+
+    <!-- 卡片脚注 -->
+    <text x="1008" y="558" font-size="12" fill="#BBBBB8" text-anchor="middle">营养数据来自麦当劳官方 MCP 接口 · 仅供参考</text>
+  </g>
+
+  <!-- 底部信息栏 -->
+  <rect x="0" y="714" width="1304" height="20" fill="#0C0C16"/>
+  <text x="72" y="700" font-size="22" fill="#FFC72C" font-family="Menlo, Monaco, monospace" font-weight="600">github.com/YOMXXX/McOptima</text>
+
+  <!-- Star 按钮 (右下) -->
+  <g>
+    <path d="M 1146 692 L 1152.4 678.8 L 1166.8 676.9 L 1156.4 667.3 L 1158.8 654 L 1146 660.5 L 1133.2 654 L 1135.6 667.3 L 1125.2 676.9 L 1139.6 678.8 Z" fill="#FFC72C"/>
+    <text x="1176" y="695" font-size="21" fill="#B8B8C8" font-weight="600">Star 支持参赛</text>
+  </g>
+</svg>
