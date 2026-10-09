@@ -25,19 +25,19 @@
 
   <!-- 最优解区 -->
   <rect x="60" y="590" width="960" height="284" rx="20" fill="#FFF" stroke="#DA0505" stroke-width="3"/>
-  <text x="100" y="665" font-size="36" fill="#DA0505" font-weight="800">McOptima 方案 (满足感 765.38)</text>
-  <text x="90" y="700" font-size="34" fill="#1A1A1A" font-weight="600">蘸酱麦麦脆汁鸡</text><text x="990" y="700" font-size="34" fill="#9B9B9B" text-anchor="end">¥11.9</text><text x="90" y="762" font-size="34" fill="#1A1A1A" font-weight="600">那么大鸡排（椒盐风味）</text><text x="990" y="762" font-size="34" fill="#9B9B9B" text-anchor="end">¥14.0</text>
+  <text x="100" y="665" font-size="36" fill="#DA0505" font-weight="800">McOptima 方案 (满足感 548.13)</text>
+  <text x="90" y="700" font-size="34" fill="#1A1A1A" font-weight="600">人气经典随心配</text><text x="990" y="700" font-size="34" fill="#9B9B9B" text-anchor="end">¥14.9</text><text x="90" y="762" font-size="34" fill="#1A1A1A" font-weight="600">牛肉堡单品精选</text><text x="990" y="762" font-size="34" fill="#9B9B9B" text-anchor="end">¥14.0</text>
   <line x1="90" y1="834" x2="990" y2="834" stroke="#EEE" stroke-width="2"/>
-  <text x="100" y="894" font-size="44" fill="#1A1A1A" font-weight="800">合计 ¥25.9</text>
-  <text x="990" y="894" font-size="38" fill="#1A1A1A" text-anchor="end" font-weight="700">713kcal · 蛋白45g</text>
+  <text x="100" y="894" font-size="44" fill="#1A1A1A" font-weight="800">合计 ¥28.9</text>
+  <text x="990" y="894" font-size="38" fill="#1A1A1A" text-anchor="end" font-weight="700">677kcal · 蛋白40g</text>
 
   <!-- 差值徽章 -->
   <rect x="60" y="914" width="960" height="110" rx="55" fill="#E8F5EC"/>
-  <text x="540" y="984" font-size="46" fill="#0F8A3C" text-anchor="middle" font-weight="800">省 ¥47.1 · 少 236 kcal</text>
+  <text x="540" y="984" font-size="46" fill="#0F8A3C" text-anchor="middle" font-weight="800">省 ¥44.1 · 少 272 kcal</text>
 
   <!-- 底部 -->
   <rect x="0" y="1220" width="1080" height="130" fill="#1A1A1A"/>
   <text x="90" y="1275" font-size="32" fill="#FFF" font-weight="600">用运筹学穷举麦当劳菜单</text>
-  <text x="90" y="1315" font-size="28" fill="#8C8C8C">github.com/<your-username>/McOptima</text>
+  <text x="90" y="1315" font-size="28" fill="#8C8C8C">github.com/YOMXXX/McOptima</text>
   <text x="990" y="1315" font-size="24" fill="#8C8C8C" text-anchor="end">数据: 麦当劳官方MCP · 仅供参考</text>
 </svg>

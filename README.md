@@ -4,9 +4,11 @@
 >
 > 预算内满足感最大化 · 控卡平替 · 蛋白下限 · 券后价最优 —— 基于麦当劳官方 MCP 实时数据的多约束 0/1 背包求解器。
 
-[![CI](https://img.shields.io/badge/CI-passing-brightgreen)](#) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](#) [![MCP](https://img.shields.io/badge/Powered%20by-McDonald's%20MCP-red)](#)
+[![CI](https://github.com/YOMXXX/McOptima/actions/workflows/ci.yml/badge.svg)](https://github.com/YOMXXX/McOptima/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE) [![MCP](https://img.shields.io/badge/Powered%20by-McDonald's%20MCP-red)](MCP_INTEGRATION.md) [![GitHub stars](https://img.shields.io/github/stars/YOMXXX/McOptima?style=social)](https://github.com/YOMXXX/McOptima/stargazers)
 
-**2026 麦当劳程序员创意开发大赛参赛作品**（非麦当劳官方产品）
+**2026 麦当劳程序员创意开发大赛参赛作品**（非麦当劳官方产品）· 觉得有意思请点个 ⭐ Star 支持参赛！
+
+**在线演示**：[GitHub Pages](https://yomxxx.github.io/McOptima/) · **仓库**：[github.com/YOMXXX/McOptima](https://github.com/YOMXXX/McOptima)
 
 ---
 

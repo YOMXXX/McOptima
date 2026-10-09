@@ -15,7 +15,7 @@ from typing import Any
 from solver import Constraints, Solution
 
 CARD_W, CARD_H = 1080, 1350
-REPO_URL = "github.com/<your-username>/McOptima"  # TODO: 建仓后替换
+REPO_URL = "github.com/YOMXXX/McOptima"
 MCD_RED = "#DA0505"
 DARK = "#1A1A1A"
 LIGHT = "#FAFAFA"
